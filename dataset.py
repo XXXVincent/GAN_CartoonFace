@@ -40,3 +40,23 @@ class FaceDataset(Dataset):
         if self.transform:
             image = self.transform(image)
         return image
+
+
+dataloader = DataLoader(FaceDataset(dataset_dir=r'C:\Users\vincent.xu\Desktop\BD_DL\test'), batch_size=4, shuffle=True)
+
+
+def show_batch(sample_batched):
+    """Show image with landmarks for a batch of samples."""
+    images_batch = sample_batched
+    batch_size = len(images_batch)
+    plt.figure()
+    for i in range(batch_size):
+        img = sample_batched[i].numpy()
+        plt.title('Batch from dataloader')
+        plt.imshow(img)
+        plt.show()
+
+
+for i_batch, sample_batched in enumerate(dataloader):
+    print(i_batch, sample_batched.size())
+    show_batch(sample_batched)
