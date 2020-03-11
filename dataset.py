@@ -3,6 +3,7 @@ import os
 import torch
 import pandas as pd
 from skimage import io, transform
+from PIL import Image
 import numpy as np
 import random
 import matplotlib.pyplot as plt
@@ -36,13 +37,12 @@ class FaceDataset(Dataset):
             idx = idx.tolist()
         img_name = os.path.join(self.dataset_dir,
                                self.img_list[idx])
-        image = io.imread(img_name)
+        image = Image.open(img_name)
         if self.transform:
             image = self.transform(image)
         return image
 
 
-dataloader = DataLoader(FaceDataset(dataset_dir=r'C:\Users\vincent.xu\Desktop\BD_DL\test'), batch_size=4, shuffle=True)
 
 
 def show_batch(sample_batched):
@@ -56,7 +56,9 @@ def show_batch(sample_batched):
         plt.imshow(img)
         plt.show()
 
-
-for i_batch, sample_batched in enumerate(dataloader):
-    print(i_batch, sample_batched.size())
-    show_batch(sample_batched)
+# if __name__ == '__main__':
+#     dataloader = DataLoader(FaceDataset(dataset_dir=r'C:\Users\vincent.xu\Desktop\BD_DL\test'), batch_size=4,
+#                             shuffle=True)
+#     for i_batch, sample_batched in enumerate(dataloader):
+#         print(i_batch, sample_batched.size())
+#         show_batch(sample_batched)
