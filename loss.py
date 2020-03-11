@@ -24,10 +24,3 @@ class JS_inequality_loss(nn.Module):
         return 0.5*self.KL_divigance(pred_S, (pred_S+pred_T)/2) +  \
                0.5*self.KL_divigance(pred_T, (pred_S+pred_T)/2)
 
-# test case
-pred_p = torch.randn(size=(16,128,48,80))
-pred_q = torch.randn(size=(16,128,48,80))
-
-a = KL_divigance()
-b = a(pred_p, pred_q)
-print(b)
