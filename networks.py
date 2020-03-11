@@ -8,6 +8,10 @@ class Generator(nn.Module):
             nn.BatchNorm2d(n_features_in_generator * 8),
             nn.ReLU(inplace=True),
 
+            nn.ConvTranspose2d(n_features_in_generator * 8, n_features_in_generator * 4, 4, 2, 1, bias=False),
+            nn.BatchNorm2d(n_features_in_generator * 4),
+            nn.ReLU(inplace=True),
+
             nn.ConvTranspose2d(n_features_in_generator * 4, n_features_in_generator * 2, 4, 2, 1, bias=False),
             nn.BatchNorm2d(n_features_in_generator * 2),
             nn.ReLU(inplace=True),
@@ -20,8 +24,8 @@ class Generator(nn.Module):
             nn.Tanh()
         )
 
-        def forward(self, input):
-            return self.network(input)
+    def forward(self, input):
+        return self.network(input)
 
 
 class Disclaimer(nn.Module):
@@ -47,11 +51,17 @@ class Disclaimer(nn.Module):
             nn.Sigmoid()
         )
 
-        def forward(self, input):
-            return self.network(input)
+    def forward(self, input):
+        return self.network(input)
 
-
-
+if __name__ == '__main__':
+    import torch
+    netD = Disclaimer(3, 64)
+    netG = Generator(100, 64, 3)
+    input_G = torch.zeros(size=(4, 100, 1, 1))
+    input_D = torch.ones(size=(4, 3, 64, 64))
+    out_G = netG(input_G)
+    out_D = netD(input_D)
 
 
 
