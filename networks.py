@@ -62,11 +62,3 @@ if __name__ == '__main__':
     input_D = torch.ones(size=(4, 3, 64, 64))
     out_G = netG(input_G)
     out_D = netD(input_D)
-
-
-
-
-
-
-
-#TODO Generator network and Disclaimer network
